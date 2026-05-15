@@ -1,0 +1,12 @@
+import AdminSidebar from "@/components/admin/AdminSidebar";
+
+export default function AdminPanelLayout({ children }) {
+  return (
+    <div className="min-h-screen bg-slate-950 text-white">
+      <div className="flex min-h-screen">
+        <AdminSidebar />
+        <main className="flex-1 p-4 md:p-8">{children}</main>
+      </div>
+    </div>
+  );
+}
