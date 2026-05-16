@@ -1,3 +1,4 @@
+
 // import mongoose from "mongoose";
 
 // const SocialLinkSchema = new mongoose.Schema(
@@ -35,6 +36,7 @@
 
 // export default mongoose.models.Hero || mongoose.model("Hero", HeroSchema);
 
+
 import mongoose from "mongoose";
 
 const SocialLinkSchema = new mongoose.Schema(
@@ -64,10 +66,12 @@ const HeroSchema = new mongoose.Schema(
     tagline: { type: String, default: "" },
     resumeUrl: { type: String, default: "" },
     resumePublicId: { type: String, default: "" },
+    profileImage: { type: String, default: "" },
+    profileImagePublicId: { type: String, default: "" },
     socialLinks: { type: [SocialLinkSchema], default: [] },
     highlights: { type: [HighlightSchema], default: [] },
   },
   { timestamps: true, collection: "hero" }
 );
 
-export default mongoose.models.Hero || mongoose.model("Hero", HeroSchema);
+export default mongoose.models.Hero || mongoose.model("Hero", HeroSchema, "hero");

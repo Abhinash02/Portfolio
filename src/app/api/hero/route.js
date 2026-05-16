@@ -2,88 +2,21 @@
 // import { connectDB } from "@/lib/db";
 // import Hero from "@/models/Hero";
 
-// export async function GET() {
-//   try {
-//     await connectDB();
-
-//     let hero = await Hero.findOne();
-
-//     if (!hero) {
-//       hero = await Hero.create({
-//         availabilityText: "Available for full-stack opportunities",
-//         name: "Abhinash",
-//         title: "MERN Stack Developer",
-//         tagline: "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB.",
-//         resumeUrl: "",
-//         resumePublicId: "",
-//         socialLinks: [],
-//         highlights: [
-//           { label: "Core Focus", value: "MERN Stack", order: 1 },
-//           { label: "Specialty", value: "Admin Panels", order: 2 },
-//           { label: "Backend", value: "REST APIs", order: 3 },
-//           { label: "UI", value: "Responsive", order: 4 },
-//         ],
-//       });
-//     }
-
-//     return NextResponse.json(hero);
-//   } catch (error) {
-//     return NextResponse.json(
-//       { message: "Failed to fetch hero", error: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-// export async function PUT(req) {
-//   try {
-//     await connectDB();
-//     const body = await req.json();
-
-//     const updatedHero = await Hero.findOneAndUpdate(
-//       {},
-//       {
-//         $set: {
-//           availabilityText: body.availabilityText,
-//           name: body.name,
-//           title: body.title,
-//           tagline: body.tagline,
-//           resumeUrl: body.resumeUrl,
-//           resumePublicId: body.resumePublicId,
-//           socialLinks: body.socialLinks || [],
-//           highlights: body.highlights || [],
-//         },
-//       },
-//       { new: true, upsert: true }
-//     );
-
-//     return NextResponse.json(updatedHero);
-//   } catch (error) {
-//     return NextResponse.json(
-//       { message: "Failed to update hero", error: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
-// import { NextResponse } from "next/server";
-// import { connectDB } from "@/lib/db";
-// import Hero from "@/models/Hero";
+// export const runtime = "nodejs";
 
 // export async function GET() {
 //   try {
 //     await connectDB();
 
-//     let hero = await Hero.findOne();
+//     let hero = await Hero.findOne().lean();
 
 //     if (!hero) {
-//       hero = await Hero.create({
+//       const createdHero = await Hero.create({
 //         availabilityText: "Available for full-stack opportunities",
 //         name: "Abhinash",
-//         title: "MERN Stack Developer",
+//         title: "MERN Developer",
 //         tagline:
-//           "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB.",
+//           "I build scalable full-stack web applications using Next.js, React.js, Node.js, Express.js, and MongoDB.",
 //         resumeUrl: "",
 //         resumePublicId: "",
 //         socialLinks: [],
@@ -94,12 +27,22 @@
 //           { label: "UI", value: "Responsive", order: 4 },
 //         ],
 //       });
+
+//       hero = createdHero.toObject();
 //     }
 
-//     return NextResponse.json(hero);
+//     return NextResponse.json({
+//       success: true,
+//       hero,
+//     });
 //   } catch (error) {
+//     console.error("GET /api/hero error:", error);
 //     return NextResponse.json(
-//       { message: "Failed to fetch hero", error: error.message },
+//       {
+//         success: false,
+//         message: "Failed to fetch hero",
+//         error: error.message,
+//       },
 //       { status: 500 }
 //     );
 //   }
@@ -108,54 +51,81 @@
 // export async function PUT(req) {
 //   try {
 //     await connectDB();
+
 //     const body = await req.json();
 
 //     const sanitizedSocialLinks = Array.isArray(body.socialLinks)
-//       ? body.socialLinks.map((item, index) => ({
-//           label: item?.label || "",
-//           url: item?.url || "",
-//           icon: item?.icon || "",
-//           order: Number(item?.order) || index + 1,
-//         }))
+//       ? body.socialLinks
+//           .filter((item) => item?.label?.trim() || item?.url?.trim() || item?.icon?.trim())
+//           .map((item, index) => ({
+//             label: item?.label?.trim() || "",
+//             url: item?.url?.trim() || "",
+//             icon: item?.icon?.trim() || "",
+//             order: Number(item?.order) || index + 1,
+//           }))
 //       : [];
 
 //     const sanitizedHighlights = Array.isArray(body.highlights)
-//       ? body.highlights.map((item, index) => ({
-//           label: item?.label || "",
-//           value: item?.value || "",
-//           order: Number(item?.order) || index + 1,
-//         }))
+//       ? body.highlights
+//           .filter((item) => item?.label?.trim() || item?.value?.trim())
+//           .map((item, index) => ({
+//             label: item?.label?.trim() || "",
+//             value: item?.value?.trim() || "",
+//             order: Number(item?.order) || index + 1,
+//           }))
 //       : [];
 
-//     const updatedHero = await Hero.findOneAndUpdate(
-//       {},
-//       {
-//         $set: {
-//           availabilityText: body.availabilityText || "",
-//           name: body.name || "",
-//           title: body.title || "",
-//           tagline: body.tagline || "",
-//           resumeUrl: body.resumeUrl || "",
-//           resumePublicId: body.resumePublicId || "",
-//           socialLinks: sanitizedSocialLinks,
-//           highlights: sanitizedHighlights,
-//         },
-//       },
-//       {
-//         new: true,
-//         upsert: true,
-//         runValidators: true,
-//       }
-//     );
+//     let hero = await Hero.findOne();
 
-//     return NextResponse.json(updatedHero);
+//     if (!hero) {
+//       hero = await Hero.create({
+//         availabilityText: body.availabilityText?.trim() || "",
+//         name: body.name?.trim() || "",
+//         title: body.title?.trim() || "",
+//         tagline: body.tagline?.trim() || "",
+//         resumeUrl: body.resumeUrl?.trim() || "",
+//         resumePublicId: body.resumePublicId?.trim() || "",
+//         socialLinks: sanitizedSocialLinks,
+//         highlights: sanitizedHighlights,
+//       });
+//     } else {
+//       hero.availabilityText = body.availabilityText?.trim() || "";
+//       hero.name = body.name?.trim() || "";
+//       hero.title = body.title?.trim() || "";
+//       hero.tagline = body.tagline?.trim() || "";
+//       hero.resumeUrl = body.resumeUrl?.trim() || "";
+//       hero.resumePublicId = body.resumePublicId?.trim() || "";
+//       hero.socialLinks = sanitizedSocialLinks;
+//       hero.highlights = sanitizedHighlights;
+
+//       await hero.save();
+//     }
+
+//     return NextResponse.json({
+//       success: true,
+//       message: "Hero updated successfully",
+//       hero,
+//     });
 //   } catch (error) {
+//     console.error("PUT /api/hero error:", error);
 //     return NextResponse.json(
-//       { message: "Failed to update hero", error: error.message },
+//       {
+//         success: false,
+//         message: "Failed to update hero",
+//         error: error.message,
+//       },
 //       { status: 500 }
 //     );
 //   }
 // }
+
+
+
+
+
+
+
+
 
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
@@ -178,6 +148,8 @@ export async function GET() {
           "I build scalable full-stack web applications using Next.js, React.js, Node.js, Express.js, and MongoDB.",
         resumeUrl: "",
         resumePublicId: "",
+        profileImage: "",
+        profileImagePublicId: "",
         socialLinks: [],
         highlights: [
           { label: "Core Focus", value: "MERN Stack", order: 1 },
@@ -190,18 +162,11 @@ export async function GET() {
       hero = createdHero.toObject();
     }
 
-    return NextResponse.json({
-      success: true,
-      hero,
-    });
+    return NextResponse.json({ success: true, hero });
   } catch (error) {
     console.error("GET /api/hero error:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch hero",
-        error: error.message,
-      },
+      { success: false, message: "Failed to fetch hero", error: error.message },
       { status: 500 }
     );
   }
@@ -211,7 +176,10 @@ export async function PUT(req) {
   try {
     await connectDB();
 
+    console.log("Hero collection:", Hero.collection.name);
+
     const body = await req.json();
+    console.log("Incoming hero payload:", body);
 
     const sanitizedSocialLinks = Array.isArray(body.socialLinks)
       ? body.socialLinks
@@ -237,13 +205,15 @@ export async function PUT(req) {
     let hero = await Hero.findOne();
 
     if (!hero) {
-      hero = await Hero.create({
+      hero = new Hero({
         availabilityText: body.availabilityText?.trim() || "",
         name: body.name?.trim() || "",
         title: body.title?.trim() || "",
         tagline: body.tagline?.trim() || "",
         resumeUrl: body.resumeUrl?.trim() || "",
         resumePublicId: body.resumePublicId?.trim() || "",
+        profileImage: body.profileImage?.trim() || "",
+        profileImagePublicId: body.profileImagePublicId?.trim() || "",
         socialLinks: sanitizedSocialLinks,
         highlights: sanitizedHighlights,
       });
@@ -254,25 +224,26 @@ export async function PUT(req) {
       hero.tagline = body.tagline?.trim() || "";
       hero.resumeUrl = body.resumeUrl?.trim() || "";
       hero.resumePublicId = body.resumePublicId?.trim() || "";
+      hero.profileImage = body.profileImage?.trim() || "";
+      hero.profileImagePublicId = body.profileImagePublicId?.trim() || "";
       hero.socialLinks = sanitizedSocialLinks;
       hero.highlights = sanitizedHighlights;
-
-      await hero.save();
     }
+
+    await hero.save();
+
+    const updatedHero = await Hero.findById(hero._id).lean();
+    console.log("Saved hero:", updatedHero);
 
     return NextResponse.json({
       success: true,
       message: "Hero updated successfully",
-      hero,
+      hero: updatedHero,
     });
   } catch (error) {
     console.error("PUT /api/hero error:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to update hero",
-        error: error.message,
-      },
+      { success: false, message: "Failed to update hero", error: error.message },
       { status: 500 }
     );
   }

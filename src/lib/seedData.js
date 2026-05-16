@@ -149,6 +149,8 @@
 //     });
 //   }
 // }
+
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 require("dotenv").config({ path: ".env.local" });
@@ -166,17 +168,7 @@ const Setting = require("../models/Setting").default;
 async function seed() {
   await mongoose.connect(process.env.MONGODB_URI);
 
-  await Promise.all([
-    User.deleteMany({}),
-    Hero.deleteMany({}),
-    About.deleteMany({}),
-    Skill.deleteMany({}),
-    Project.deleteMany({}),
-    Experience.deleteMany({}),
-    Education.deleteMany({}),
-    Social.deleteMany({}),
-    Setting.deleteMany({})
-  ]);
+
 
   const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
 
