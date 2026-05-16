@@ -248,8 +248,6 @@ export default function Hero({ hero }) {
             {hero?.availabilityText || "Available for full-stack opportunities"}
           </motion.p>
 
-          
-
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

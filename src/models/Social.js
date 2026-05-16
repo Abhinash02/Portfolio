@@ -10,6 +10,7 @@
 // );
 
 // export default mongoose.models.Social || mongoose.model("Social", SocialSchema);
+
 import mongoose from "mongoose";
 
 const SocialSchema = new mongoose.Schema(

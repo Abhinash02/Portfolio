@@ -160,7 +160,48 @@
 //   );
 // }
 
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
+// import { connectDB } from "@/lib/db";
+
+// import Hero from "@/models/Hero";
+// import About from "@/models/About";
+// import Skill from "@/models/Skill";
+// import Project from "@/models/Project";
+// import Experience from "@/models/Experience";
+// import Education from "@/models/Education";
+// import Social from "@/models/Social";
+// import Setting from "@/models/Setting";
+
+// export async function getPortfolioData() {
+//   await connectDB();
+
+//   const [hero, about, skills, projects, experience, education, socials, settings] =
+//     await Promise.all([
+//       Hero.findOne({}).lean(),
+//       About.findOne({}).lean(),
+//       Skill.find({}).sort({ order: 1 }).lean(),
+//       Project.find({}).sort({ order: 1 }).lean(),
+//       Experience.find({}).sort({ order: 1 }).lean(),
+//       Education.find({}).sort({ order: 1 }).lean(),
+//       Social.find({}).sort({ order: 1 }).lean(),
+//       Setting.findOne({}).lean(),
+//     ]);
+
+//   return JSON.parse(
+//     JSON.stringify({
+//       hero,
+//       about,
+//       skills,
+//       projects,
+//       experience,
+//       education,
+//       socials,
+//       settings,
+//     })
+//   );
+// }
+
+
 import { connectDB } from "@/lib/db";
 
 import Hero from "@/models/Hero";
@@ -173,30 +214,45 @@ import Social from "@/models/Social";
 import Setting from "@/models/Setting";
 
 export async function getPortfolioData() {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const [hero, about, skills, projects, experience, education, socials, settings] =
-    await Promise.all([
-      Hero.findOne({}).lean(),
-      About.findOne({}).lean(),
-      Skill.find({}).sort({ order: 1 }).lean(),
-      Project.find({}).sort({ order: 1 }).lean(),
-      Experience.find({}).sort({ order: 1 }).lean(),
-      Education.find({}).sort({ order: 1 }).lean(),
-      Social.find({}).sort({ order: 1 }).lean(),
-      Setting.findOne({}).lean(),
-    ]);
+    const [hero, about, skills, projects, experience, education, socials, settings] =
+      await Promise.all([
+        Hero.findOne({}).lean(),
+        About.findOne({}).lean(),
+        Skill.find({}).sort({ order: 1 }).lean(),
+        Project.find({}).sort({ order: 1, createdAt: -1 }).lean(),
+        Experience.find({}).sort({ order: 1 }).lean(),
+        Education.find({}).sort({ order: 1 }).lean(),
+        Social.find({}).sort({ order: 1 }).lean(),
+        Setting.findOne({}).lean(),
+      ]);
 
-  return JSON.parse(
-    JSON.stringify({
-      hero,
-      about,
-      skills,
-      projects,
-      experience,
-      education,
-      socials,
-      settings,
-    })
-  );
+    return JSON.parse(
+      JSON.stringify({
+        hero,
+        about,
+        skills,
+        projects,
+        experience,
+        education,
+        socials,
+        settings,
+      })
+    );
+  } catch (error) {
+    console.error("getPortfolioData failed:", error);
+
+    return {
+      hero: null,
+      about: null,
+      skills: [],
+      projects: [],
+      experience: [],
+      education: [],
+      socials: [],
+      settings: null,
+    };
+  }
 }

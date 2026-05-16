@@ -10,6 +10,8 @@
 // );
 
 // export default mongoose.models.Setting || mongoose.model("Setting", SettingSchema);
+
+
 import mongoose from "mongoose";
 
 const SettingSchema = new mongoose.Schema(
