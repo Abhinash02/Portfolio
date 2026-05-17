@@ -29,6 +29,8 @@
 //   },
 //   secret: process.env.NEXTAUTH_SECRET
 // };
+
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";

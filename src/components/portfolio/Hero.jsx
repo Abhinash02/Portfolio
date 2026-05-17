@@ -1091,8 +1091,8 @@ export default function Hero({ hero }) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.16 }}
-            className="mt-3 min-h-[32px] text-base font-semibold text-white/80 sm:text-xl md:mt-3 md:min-h-[40px] md:text-3xl"
-          >
+            className="mt-0 min-h-[10px] text-base font-semibold text-white/80 sm:mt-1 sm:text-xl md:mt-2 md:min-h-[15px] md:text-3xl"
+>
             <span ref={titleRef} />
           </motion.h3>
 
@@ -1100,7 +1100,7 @@ export default function Hero({ hero }) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.24 }}
-            className="mt-4 max-w-2xl text-justify text-sm leading-7 text-white/70 sm:text-base md:mt-5 md:text-lg md:leading-8"
+            className="mt-2 max-w-2xl text-justify text-sm leading-7 text-white/70 sm:text-base md:mt-3 md:text-lg md:leading-8"
           >
             {hero?.tagline ||
               "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB."}
@@ -1144,7 +1144,7 @@ export default function Hero({ hero }) {
   variants={socialContainer}
   initial="hidden"
   animate="show"
-className="mt-5 flex flex-row flex-nowrap items-center gap-2 overflow-x-auto sm:mt-7 md:gap-4">
+className="mt-5 flex flex-row flex-nowrap items-center gap-2 overflow-x-auto sm:mt-7 md:gap-3">
   <motion.a
     variants={socialItem}
     whileHover={{ y: -2, scale: 1.02 }}
