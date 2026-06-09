@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
+import { requireAuth } from "@/lib/requireAuth";
 import Experience from "@/models/Experience";
 
 export async function GET() {
@@ -16,6 +17,9 @@ export async function GET() {
 }
 
 export async function POST(req) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     const body = await req.json();

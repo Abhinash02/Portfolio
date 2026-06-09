@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
+import { requireAuth } from "@/lib/requireAuth";
 import Setting from "@/models/Setting";
 
 export async function GET() {
@@ -13,6 +14,9 @@ export async function GET() {
 }
 
 export async function PUT(req) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     const body = await req.json();

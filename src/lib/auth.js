@@ -39,6 +39,11 @@ import User from "@/models/User";
 export const authOptions = {
   session: {
     strategy: "jwt",
+    maxAge: 60 * 60 * 8, // 8 hours
+    updateAge: 60 * 30, // refresh every 30 min
+  },
+  jwt: {
+    maxAge: 60 * 60 * 8,
   },
   pages: {
     signIn: "/admin/login",
@@ -80,12 +85,16 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.role = "admin";
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id;
+        session.user.role = token.role;
       }
       return session;
     },

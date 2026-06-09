@@ -45,12 +45,16 @@
 // }
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
+import { requireAuth } from "@/lib/requireAuth";
 import Project from "@/models/Project";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function PUT(req, context) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     const body = await req.json();
@@ -83,6 +87,9 @@ export async function PUT(req, context) {
 }
 
 export async function DELETE(req, context) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     const { id } = await context.params;

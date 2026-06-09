@@ -54,11 +54,15 @@
 
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
+import { requireAuth } from "@/lib/requireAuth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     const formData = await req.formData();
     const file = formData.get("file");

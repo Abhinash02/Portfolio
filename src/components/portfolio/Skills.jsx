@@ -1,52 +1,3 @@
-
-
-// "use client";
-
-// import FadeUp from "./FadeUp";
-
-// export default function Skills({ skills = [] }) {
-//   const doubledSkills = [...skills, ...skills];
-
-//   return (
-//     <section id="skills" className="section-space">
-//       <div className="container-custom">
-//         <FadeUp>
-//           <p className="mb-3 text-sm uppercase tracking-[0.35em] text-cyan-400">Tech Stack</p>
-//           <h2 className="mb-8 text-4xl font-black md:text-5xl">Skills</h2>
-//         </FadeUp>
-
-//         <FadeUp delay={0.1}>
-//           <div className="marquee">
-//             <div className="marquee-track gap-4">
-//               {doubledSkills.map((skill, index) => (
-//                 <div
-//                   key={`${skill._id || skill.name}-${index}`}
-//                   className="glass min-w-[150px] rounded-2xl px-4 py-4 text-center sm:min-w-[170px] md:min-w-[190px]"
-//                 >
-//                   <h3 className="text-sm font-bold sm:text-base">{skill.name}</h3>
-//                   <p className="mt-2 text-xs text-cyan-400 sm:text-sm">{skill.category}</p>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </FadeUp>
-
-//         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:hidden">
-//           {skills.slice(0, 6).map((skill, index) => (
-//             <FadeUp key={skill._id || skill.name} delay={index * 0.05}>
-//               <div className="glass rounded-2xl p-4 text-center">
-//                 <h3 className="text-sm font-bold sm:text-base">{skill.name}</h3>
-//                 <p className="mt-1 text-xs text-cyan-400">{skill.category}</p>
-//               </div>
-//             </FadeUp>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -54,97 +5,138 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import FadeUp from "./FadeUp";
 
-export default function Skills({ skills = [] }) {
-  const doubledSkills = [...skills, ...skills];
-  const marqueeRef = useRef(null);
+const CATEGORY_COLORS = {
+  frontend:   { border: "border-violet-400/30", bg: "bg-violet-500/10", text: "text-violet-300", dot: "bg-violet-400" },
+  backend:    { border: "border-cyan-400/30",   bg: "bg-cyan-500/10",   text: "text-cyan-300",   dot: "bg-cyan-400" },
+  database:   { border: "border-emerald-400/30",bg: "bg-emerald-500/10",text: "text-emerald-300",dot: "bg-emerald-400" },
+  devops:     { border: "border-orange-400/30", bg: "bg-orange-500/10", text: "text-orange-300", dot: "bg-orange-400" },
+  tools:      { border: "border-pink-400/30",   bg: "bg-pink-500/10",   text: "text-pink-300",   dot: "bg-pink-400" },
+  default:    { border: "border-white/15",       bg: "bg-white/6",       text: "text-white/60",   dot: "bg-white/40" },
+};
+
+function getCategoryStyle(category = "") {
+  const key = category.toLowerCase();
+  return CATEGORY_COLORS[key] || CATEGORY_COLORS.default;
+}
+
+function MarqueeTrack({ skills, direction = 1, speed = 24 }) {
   const trackRef = useRef(null);
+  const wrapRef = useRef(null);
+  const tweenRef = useRef(null);
 
   useEffect(() => {
-    if (!trackRef.current || !marqueeRef.current || !skills.length) return;
+    if (!trackRef.current || !skills.length) return;
 
-    const track = trackRef.current;
-
-    const totalWidth = track.scrollWidth / 2;
-
-    const tween = gsap.fromTo(
-      track,
-      { x: 0 },
+    const totalWidth = trackRef.current.scrollWidth / 2;
+    tweenRef.current = gsap.fromTo(
+      trackRef.current,
+      { x: direction === 1 ? 0 : -totalWidth },
       {
-        x: -totalWidth,
-        duration: 22,
+        x: direction === 1 ? -totalWidth : 0,
+        duration: speed,
         ease: "none",
         repeat: -1,
       }
     );
 
-    const handleMouseEnter = () => tween.pause();
-    const handleMouseLeave = () => tween.play();
+    const pauseOnHover = () => tweenRef.current?.pause();
+    const resumeOnLeave = () => tweenRef.current?.play();
 
-    marqueeRef.current.addEventListener("mouseenter", handleMouseEnter);
-    marqueeRef.current.addEventListener("mouseleave", handleMouseLeave);
+    wrapRef.current?.addEventListener("mouseenter", pauseOnHover);
+    wrapRef.current?.addEventListener("mouseleave", resumeOnLeave);
 
     return () => {
-      marqueeRef.current?.removeEventListener("mouseenter", handleMouseEnter);
-      marqueeRef.current?.removeEventListener("mouseleave", handleMouseLeave);
-      tween.kill();
+      wrapRef.current?.removeEventListener("mouseenter", pauseOnHover);
+      wrapRef.current?.removeEventListener("mouseleave", resumeOnLeave);
+      tweenRef.current?.kill();
     };
-  }, [skills.length]);
+  }, [skills.length, direction, speed]);
+
+  const doubled = [...skills, ...skills];
 
   return (
-    <section id="skills" className="section-space overflow-hidden">
+    <div ref={wrapRef} className="marquee-wrap py-2">
+      <div ref={trackRef} className="marquee-track">
+        {doubled.map((skill, i) => {
+          const style = getCategoryStyle(skill.category);
+          return (
+            <motion.div
+              key={`${skill._id || skill.name}-${i}`}
+              whileHover={{ y: -8, scale: 1.06 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className={`group relative flex min-w-[160px] flex-col items-center justify-center gap-1.5 rounded-2xl border ${style.border} ${style.bg} px-5 py-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.2)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] sm:min-w-[180px]`}
+            >
+              {/* Category dot */}
+              <span className={`h-1.5 w-1.5 rounded-full ${style.dot} opacity-80`} />
+              <h3 className="text-sm font-bold text-white sm:text-base">{skill.name}</h3>
+              <p className={`text-xs font-medium ${style.text}`}>{skill.category}</p>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default function Skills({ skills = [] }) {
+  const frontendSkills = skills.length
+    ? skills.filter((_, i) => i % 2 === 0)
+    : [];
+  const backendSkills = skills.length
+    ? skills.filter((_, i) => i % 2 !== 0)
+    : [];
+
+  // If no split possible, just use all skills twice
+  const track1 = frontendSkills.length > 0 ? frontendSkills : skills;
+  const track2 = backendSkills.length > 0 ? backendSkills : [...skills].reverse();
+
+  return (
+    <section id="skills" className="section-space relative overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.07),transparent_60%)]" />
+
       <div className="container-custom">
         <FadeUp>
-          <p className="mb-3 text-sm uppercase tracking-[0.35em] text-cyan-400">
-            Tech Stack
+          <span className="section-label">Tech Stack</span>
+          <h2 className="mb-2 text-4xl font-black md:text-5xl">
+            My <span className="gradient-text">Skills</span>
+          </h2>
+          <p className="mb-10 text-sm text-white/40">
+            Technologies I work with daily
           </p>
-          <h2 className="mb-8 text-4xl font-black md:text-5xl">Skills</h2>
         </FadeUp>
+      </div>
 
+      {/* Dual Marquee tracks */}
+      {skills.length > 0 ? (
         <FadeUp delay={0.1}>
-          <div
-            ref={marqueeRef}
-            className="relative overflow-hidden"
-          >
-            <div
-              ref={trackRef}
-              className="flex w-max gap-4"
-            >
-              {doubledSkills.map((skill, index) => (
-                <motion.div
-                  key={`${skill._id || skill.name}-${index}`}
-                  whileHover={{ y: -8, scale: 1.04 }}
-                  transition={{ duration: 0.28, ease: "easeOut" }}
-                  className="glass min-w-[150px] rounded-2xl px-4 py-4 text-center sm:min-w-[170px] md:min-w-[190px]"
-                >
-                  <h3 className="text-sm font-bold sm:text-base">
-                    {skill.name}
-                  </h3>
-                  <p className="mt-2 text-xs text-cyan-400 sm:text-sm">
-                    {skill.category}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-slate-950 to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-slate-950 to-transparent" />
+          <div className="flex flex-col gap-4">
+            <MarqueeTrack skills={track1} direction={1} speed={26} />
+            <MarqueeTrack skills={track2} direction={-1} speed={22} />
           </div>
         </FadeUp>
-
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:hidden">
-          {skills.slice(0, 6).map((skill, index) => (
-            <FadeUp key={skill._id || skill.name} delay={index * 0.05}>
-              <motion.div
-                whileHover={{ y: -6, scale: 1.03 }}
-                transition={{ duration: 0.25 }}
-                className="glass rounded-2xl p-4 text-center"
-              >
-                <h3 className="text-sm font-bold sm:text-base">{skill.name}</h3>
-                <p className="mt-1 text-xs text-cyan-400">{skill.category}</p>
-              </motion.div>
-            </FadeUp>
-          ))}
+      ) : (
+        <div className="container-custom">
+          <p className="text-white/40">No skills data yet.</p>
         </div>
+      )}
+
+      {/* Category legend */}
+      <div className="container-custom mt-8">
+        <FadeUp delay={0.2}>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {Object.entries(CATEGORY_COLORS)
+              .filter(([key]) => key !== "default")
+              .map(([key, val]) => (
+                <span
+                  key={key}
+                  className={`inline-flex items-center gap-2 rounded-full border ${val.border} ${val.bg} px-3 py-1 text-xs font-medium ${val.text}`}
+                >
+                  <span className={`h-1.5 w-1.5 rounded-full ${val.dot}`} />
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </span>
+              ))}
+          </div>
+        </FadeUp>
       </div>
     </section>
   );

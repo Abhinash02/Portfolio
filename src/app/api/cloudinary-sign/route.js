@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
+import { requireAuth } from "@/lib/requireAuth";
 
 export async function POST(req) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     const body = await req.json();
     const timestamp = Math.round(new Date().getTime() / 1000);

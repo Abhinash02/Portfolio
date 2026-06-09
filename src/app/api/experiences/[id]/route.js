@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
+import { requireAuth } from "@/lib/requireAuth";
 import Experience from "@/models/Experience";
 
 export async function PUT(req, { params }) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     const body = await req.json();
@@ -30,6 +34,9 @@ export async function PUT(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     await Experience.findByIdAndDelete(params.id);

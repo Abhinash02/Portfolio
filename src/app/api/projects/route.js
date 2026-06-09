@@ -42,6 +42,7 @@
 
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
+import { requireAuth } from "@/lib/requireAuth";
 import Project from "@/models/Project";
 
 export const runtime = "nodejs";
@@ -65,6 +66,9 @@ export async function GET() {
 }
 
 export async function POST(req) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
     const body = await req.json();

@@ -1,856 +1,3 @@
-
-
-// "use client";
-
-// import { motion } from "framer-motion";
-
-// const socialContainer = {
-//   hidden: { opacity: 0, y: 16 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.08,
-//       delayChildren: 0.12,
-//     },
-//   },
-// };
-
-// const socialItem = {
-//   hidden: { opacity: 0, y: 14, scale: 0.94 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.32,
-//       ease: "easeOut",
-//     },
-//   },
-// };
-
-// const cardContainer = {
-//   hidden: { opacity: 0, y: 18 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.08,
-//       delayChildren: 0.24,
-//     },
-//   },
-// };
-
-// const cardItem = {
-//   hidden: { opacity: 0, y: 20, scale: 0.96 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.38,
-//       ease: "easeOut",
-//     },
-//   },
-// };
-
-
-// export default function Hero({ hero }) {
-//   const socialLinks = Array.isArray(hero?.socialLinks) ? hero.socialLinks : [];
-//   const highlights = Array.isArray(hero?.highlights) ? hero.highlights : [];
-
-//   return (
-//     <section className="relative overflow-hidden py-10 md:py-16">
-//       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.16),transparent_25%),radial-gradient(circle_at_left,rgba(59,130,246,0.12),transparent_30%)]" />
-//       <div className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-cyan-400/10 via-cyan-300/5 to-transparent blur-2xl md:h-56" />
-
-//       <div className="container-custom grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
-//         <div>
-//           <motion.p
-//             initial={{ opacity: 0, y: 18 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.45 }}
-//             className="mb-3 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-2 text-[11px] font-medium tracking-[0.2em] text-cyan-300 sm:px-4 md:mb-4 md:text-sm"
-//           >
-//             {hero?.availabilityText || "Available for full-stack opportunities"}
-//           </motion.p>
-
-//           <motion.h1
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.08 }}
-//             className="text-3xl font-black leading-tight sm:text-5xl md:text-6xl xl:text-7xl"
-//           >
-//             Hi, I&apos;m <span className="text-cyan-400 drop-shadow-[0_0_18px_rgba(34,211,238,0.18)]">{hero?.name || "Abhinash"}</span>
-//           </motion.h1>
-
-//           <motion.h2
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.16 }}
-//             className="mt-3 text-base font-semibold text-white/80 sm:text-xl md:mt-3 md:text-3xl"
-//           >
-//             {hero?.title || "MERN Stack Developer"}
-//           </motion.h2>
-
-//           <motion.p
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.24 }}
-//            className="mt-4 max-w-2xl text-justify text-sm leading-7 text-white/70 sm:text-base md:mt-5 md:text-lg md:leading-8">
-//             {hero?.tagline ||
-//               "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB."}
-//           </motion.p>
-//                 {hero?.resumeUrl && (
-//   <motion.a
-//     variants={socialItem}
-//     whileHover={{ y: -2, scale: 1.02 }}
-//     whileTap={{ scale: 0.97 }}
-//     href={hero.resumeUrl}
-//     className="btn-primary"
-//     target="_blank"
-//     rel="noopener noreferrer"
-//   >
-//     Download Resume
-//   </motion.a>
-// )}
-//           <motion.div
-//             variants={socialContainer}
-//             initial="hidden"
-//             animate="show"
-//             className="mt-4 flex flex-wrap items-center gap-2.5 md:mt-8 md:gap-4"
-//           >
-//             <motion.a
-//               variants={socialItem}
-//               whileHover={{ y: -2, scale: 1.02 }}
-//               whileTap={{ scale: 0.97 }}
-//               href="#projects"
-//               className="btn-primary shadow-[0_10px_30px_rgba(34,211,238,0.18)]"
-//             >
-//               View Projects
-//             </motion.a>
-
-//             {socialLinks.length > 0 &&
-//               [...socialLinks]
-//                 .sort((a, b) => (a.order || 0) - (b.order || 0))
-//                 .map((item) => (
-//                   <motion.a
-//                     variants={socialItem}
-//                     whileHover={{ y: -3, scale: 1.06 }}
-//                     whileTap={{ scale: 0.94 }}
-//                     key={item._id || item.label}
-//                     href={item.url}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:shadow-[0_10px_24px_rgba(34,211,238,0.16)] md:h-11 md:w-11"
-//                     title={item.label}
-//                   >
-//                     {item.icon ? (
-//                       <img
-//                         src={item.icon}
-//                         alt={item.label || "social icon"}
-//                         className="h-4 w-4 object-contain md:h-5 md:w-5"
-//                       />
-//                     ) : (
-//                       <span className="text-xs font-bold text-cyan-300">
-//                         {item.label?.charAt(0) || "S"}
-//                       </span>
-//                     )}
-//                   </motion.a>
-//                 ))}
-//           </motion.div>
-          
-//         </div>
-
-
-//         <motion.div
-//           initial={{ opacity: 0, scale: 0.96, y: 18 }}
-//           animate={{ opacity: 1, scale: 1, y: 0 }}
-//           transition={{ duration: 0.7, delay: 0.2 }}
-//           className="glass relative mx-auto w-full rounded-[1.75rem] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.35)] sm:p-6 md:rounded-[2rem] md:p-8"
-//         >
-//           <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-cyan-400/10 via-transparent to-blue-500/10 md:rounded-[2rem]" />
-
-//           <motion.div
-//             variants={cardContainer}
-//             initial="hidden"
-//             animate="show"
-//             className="relative grid grid-cols-2 gap-3 sm:gap-4"
-//           >
-//             {highlights.length > 0 ? (
-//               [...highlights]
-//                 .sort((a, b) => (a.order || 0) - (b.order || 0))
-//                 .map((item) => (
-//                   <motion.div
-//                     variants={cardItem}
-//                     whileHover={{ y: -4, scale: 1.02 }}
-//                     whileTap={{ scale: 0.98 }}
-//                     key={item._id || item.label}
-//                     className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                   >
-//                     <p className="text-xs text-white/50 md:text-sm">{item.label}</p>
-//                     <h4 className="mt-2 text-base font-bold leading-snug md:text-xl">{item.value}</h4>
-//                   </motion.div>
-//                 ))
-//             ) : (
-//               <>
-//                 <motion.div
-//                   variants={cardItem}
-//                   whileHover={{ y: -4, scale: 1.02 }}
-//                   whileTap={{ scale: 0.98 }}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Core Focus</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">MERN Stack</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   whileHover={{ y: -4, scale: 1.02 }}
-//                   whileTap={{ scale: 0.98 }}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Specialty</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">Admin Panels</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   whileHover={{ y: -4, scale: 1.02 }}
-//                   whileTap={{ scale: 0.98 }}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Backend</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">REST APIs</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   whileHover={{ y: -4, scale: 1.02 }}
-//                   whileTap={{ scale: 0.98 }}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">UI</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">Responsive</h4>
-//                 </motion.div>
-//               </>
-//             )}
-//           </motion.div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-// "use client";
-
-// import { useEffect, useMemo, useState } from "react";
-// import { motion } from "framer-motion";
-
-// const socialContainer = {
-//   hidden: { opacity: 0, y: 16 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.08,
-//       delayChildren: 0.12,
-//     },
-//   },
-// };
-
-// const socialItem = {
-//   hidden: { opacity: 0, y: 14, scale: 0.94 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.32,
-//       ease: "easeOut",
-//     },
-//   },
-// };
-
-// const cardContainer = {
-//   hidden: { opacity: 0, y: 18 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.08,
-//       delayChildren: 0.24,
-//     },
-//   },
-// };
-
-// const cardItem = {
-//   hidden: { opacity: 0, y: 20, scale: 0.96 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.38,
-//       ease: "easeOut",
-//     },
-//   },
-// };
-
-// export default function Hero({ hero }) {
-//   const socialLinks = Array.isArray(hero?.socialLinks) ? hero.socialLinks : [];
-//   const highlights = Array.isArray(hero?.highlights) ? hero.highlights : [];
-//   const fullText = useMemo(() => `Hi, I’m ${hero?.name || "Abhinash"}`, [hero?.name]);
-//   const [typedText, setTypedText] = useState("");
-
-//   useEffect(() => {
-//     let index = 0;
-//     setTypedText("");
-
-//     const interval = setInterval(() => {
-//       index += 1;
-//       setTypedText(fullText.slice(0, index));
-
-//       if (index >= fullText.length) {
-//         clearInterval(interval);
-//       }
-//     }, 70);
-
-//     return () => clearInterval(interval);
-//   }, [fullText]);
-
-//   return (
-//     <section className="relative overflow-hidden py-10 md:py-16">
-//       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.16),transparent_25%),radial-gradient(circle_at_left,rgba(59,130,246,0.12),transparent_30%)]" />
-//       <div className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-cyan-400/10 via-cyan-300/5 to-transparent blur-2xl md:h-56" />
-
-//       <div className="container-custom grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
-//         <div>
-//           {hero?.profileImage ? (
-//             <motion.div
-//               initial={{ opacity: 0, scale: 0.9, y: 20 }}
-//               animate={{ opacity: 1, scale: 1, y: 0 }}
-//               transition={{ duration: 0.6 }}
-//               className="mb-6 flex justify-center lg:justify-start"
-//             >
-//               <div className="relative">
-//                 <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-2xl" />
-//                 <div className="absolute -inset-2 rounded-full border border-cyan-400/20" />
-//                 <img
-//                   src={hero.profileImage}
-//                   alt={hero?.name || "Profile"}
-//                   className="relative h-28 w-28 rounded-full border border-white/10 object-cover shadow-[0_0_40px_rgba(34,211,238,0.22)] sm:h-36 sm:w-36 md:h-40 md:w-40"
-//                 />
-//               </div>
-//             </motion.div>
-//           ) : null}
-
-//           <motion.p
-//             initial={{ opacity: 0, y: 18 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.45 }}
-//             className="mb-3 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-2 text-[11px] font-medium tracking-[0.2em] text-cyan-300 sm:px-4 md:mb-4 md:text-sm"
-//           >
-//             {hero?.availabilityText || "Available for full-stack opportunities"}
-//           </motion.p>
-
-//           <motion.h1
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.08 }}
-//             className="min-h-[56px] text-3xl font-black leading-tight sm:min-h-[72px] sm:text-5xl md:min-h-[92px] md:text-6xl xl:text-7xl"
-//           >
-//             <span className="whitespace-pre-wrap">
-//               {typedText}
-//               <span className="ml-1 inline-block h-[1em] w-[2px] animate-pulse bg-cyan-400 align-middle" />
-//             </span>
-//           </motion.h1>
-
-//           <motion.h2
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.16 }}
-//             className="mt-3 text-base font-semibold text-white/80 sm:text-xl md:mt-3 md:text-3xl"
-//           >
-//             {hero?.title || "MERN Stack Developer"}
-//           </motion.h2>
-
-//           <motion.p
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.24 }}
-//             className="mt-4 max-w-2xl text-justify text-sm leading-7 text-white/70 sm:text-base md:mt-5 md:text-lg md:leading-8"
-//           >
-//             {hero?.tagline ||
-//               "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB."}
-//           </motion.p>
-
-//           <motion.div
-//             variants={socialContainer}
-//             initial="hidden"
-//             animate="show"
-//             className="mt-5 flex flex-wrap items-center gap-3 md:mt-8"
-//           >
-//             <motion.a
-//               variants={socialItem}
-//               whileHover={{ y: -2, scale: 1.02 }}
-//               whileTap={{ scale: 0.97 }}
-//               href="#projects"
-//               className="btn-primary whitespace-nowrap shadow-[0_10px_30px_rgba(34,211,238,0.18)]"
-//             >
-//               View Projects
-//             </motion.a>
-
-//             {hero?.resumeUrl ? (
-//               <motion.a
-//                 variants={socialItem}
-//                 whileHover={{ y: -2, scale: 1.02 }}
-//                 whileTap={{ scale: 0.97 }}
-//                 href={hero.resumeUrl}
-//                 className="btn-primary whitespace-nowrap"
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//               >
-//                 Download Resume
-//               </motion.a>
-//             ) : null}
-//           </motion.div>
-
-//           {socialLinks.length > 0 ? (
-//             <motion.div
-//               variants={socialContainer}
-//               initial="hidden"
-//               animate="show"
-//               className="mt-5 flex flex-wrap items-center gap-2.5 md:mt-6 md:gap-4"
-//             >
-//               {[...socialLinks]
-//                 .sort((a, b) => (a.order || 0) - (b.order || 0))
-//                 .map((item) => (
-//                   <motion.a
-//                     variants={socialItem}
-//                     whileHover={{ y: -3, scale: 1.06 }}
-//                     whileTap={{ scale: 0.94 }}
-//                     key={item._id || item.label}
-//                     href={item.url}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:shadow-[0_10px_24px_rgba(34,211,238,0.16)] md:h-11 md:w-11"
-//                     title={item.label}
-//                   >
-//                     {item.icon ? (
-//                       <img
-//                         src={item.icon}
-//                         alt={item.label || "social icon"}
-//                         className="h-4 w-4 object-contain md:h-5 md:w-5"
-//                       />
-//                     ) : (
-//                       <span className="text-xs font-bold text-cyan-300">
-//                         {item.label?.charAt(0) || "S"}
-//                       </span>
-//                     )}
-//                   </motion.a>
-//                 ))}
-//             </motion.div>
-//           ) : null}
-//         </div>
-
-//         <motion.div
-//           initial={{ opacity: 0, scale: 0.96, y: 18 }}
-//           animate={{ opacity: 1, scale: 1, y: 0 }}
-//           transition={{ duration: 0.7, delay: 0.2 }}
-//           className="glass relative mx-auto w-full rounded-[1.75rem] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.35)] sm:p-6 md:rounded-[2rem] md:p-8"
-//         >
-//           <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-cyan-400/10 via-transparent to-blue-500/10 md:rounded-[2rem]" />
-
-//           <motion.div
-//             variants={cardContainer}
-//             initial="hidden"
-//             animate="show"
-//             className="relative grid grid-cols-2 gap-3 sm:gap-4"
-//           >
-//             {highlights.length > 0 ? (
-//               [...highlights]
-//                 .sort((a, b) => (a.order || 0) - (b.order || 0))
-//                 .map((item) => (
-//                   <motion.div
-//                     variants={cardItem}
-//                     whileHover={{ y: -4, scale: 1.02 }}
-//                     whileTap={{ scale: 0.98 }}
-//                     key={item._id || item.label}
-//                     className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                   >
-//                     <p className="text-xs text-white/50 md:text-sm">{item.label}</p>
-//                     <h4 className="mt-2 text-base font-bold leading-snug md:text-xl">
-//                       {item.value}
-//                     </h4>
-//                   </motion.div>
-//                 ))
-//             ) : (
-//               <>
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Core Focus</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">MERN Stack</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Specialty</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">Admin Panels</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Backend</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">REST APIs</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">UI</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">Responsive</h4>
-//                 </motion.div>
-//               </>
-//             )}
-//           </motion.div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-// "use client";
-
-// import { useEffect, useRef } from "react";
-// import { motion } from "framer-motion";
-// import { gsap } from "gsap";
-
-// const socialContainer = {
-//   hidden: { opacity: 0, y: 16 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.08,
-//       delayChildren: 0.12,
-//     },
-//   },
-// };
-
-// const socialItem = {
-//   hidden: { opacity: 0, y: 14, scale: 0.94 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.32,
-//       ease: "easeOut",
-//     },
-//   },
-// };
-
-// const cardContainer = {
-//   hidden: { opacity: 0, y: 18 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     transition: {
-//       staggerChildren: 0.08,
-//       delayChildren: 0.24,
-//     },
-//   },
-// };
-
-// const cardItem = {
-//   hidden: { opacity: 0, y: 20, scale: 0.96 },
-//   show: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.38,
-//       ease: "easeOut",
-//     },
-//   },
-// };
-
-// export default function Hero({ hero }) {
-//   const socialLinks = Array.isArray(hero?.socialLinks) ? hero.socialLinks : [];
-//   const highlights = Array.isArray(hero?.highlights) ? hero.highlights : [];
-
-//   const headingRef = useRef(null);
-//   const titleRef = useRef(null);
-
-//   useEffect(() => {
-//     const headingEl = headingRef.current;
-//     const titleEl = titleRef.current;
-
-//     if (!headingEl || !titleEl) return;
-
-//     const mainText = `Hi, I'm ${hero?.name || "Abhinash"}`;
-//     const roleText = hero?.title || "MERN Stack Developer";
-
-//     let headingIndex = 0;
-//     let titleIndex = 0;
-
-//     headingEl.textContent = "";
-//     titleEl.textContent = "";
-
-//     const headingTyping = setInterval(() => {
-//       headingIndex += 1;
-//       headingEl.textContent = mainText.slice(0, headingIndex);
-
-//       if (headingIndex >= mainText.length) {
-//         clearInterval(headingTyping);
-
-//         setTimeout(() => {
-//           const titleTyping = setInterval(() => {
-//             titleIndex += 1;
-//             titleEl.textContent = roleText.slice(0, titleIndex);
-
-//             if (titleIndex >= roleText.length) {
-//               clearInterval(titleTyping);
-
-//               gsap.to([headingEl, titleEl], {
-//                 opacity: 0.65,
-//                 y: -4,
-//                 duration: 1.2,
-//                 repeat: -1,
-//                 yoyo: true,
-//                 ease: "power1.inOut",
-//               });
-//             }
-//           }, 85);
-//         }, 250);
-//       }
-//     }, 90);
-//     return () => {
-//       clearInterval(headingTyping);
-//       gsap.killTweensOf([headingEl, titleEl]);
-//     };
-//   }, [hero?.name, hero?.title]);
-
-//   return (
-//     <section className="relative overflow-hidden py-10 md:py-16">
-//       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.16),transparent_25%),radial-gradient(circle_at_left,rgba(59,130,246,0.12),transparent_30%)]" />
-//       <div className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-cyan-400/10 via-cyan-300/5 to-transparent blur-2xl md:h-56" />
-
-//       <div className="container-custom grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
-//         <div>
-//           {hero?.profileImage ? (
-//             <motion.div
-//               initial={{ opacity: 0, scale: 0.9, y: 20 }}
-//               animate={{ opacity: 1, scale: 1, y: 0 }}
-//               transition={{ duration: 0.6 }}
-//               className="mb-6 flex justify-center lg:justify-start"
-//             >
-//               <div className="relative">
-//                 <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-2xl" />
-//                 <div className="absolute -inset-2 rounded-full border border-cyan-400/20" />
-//                 <img
-//                   src={hero.profileImage}
-//                   alt={hero?.name || "Profile"}
-//                   className="relative h-28 w-28 rounded-full border border-white/10 object-cover shadow-[0_0_40px_rgba(34,211,238,0.22)] sm:h-36 sm:w-36 md:h-40 md:w-40"
-//                 />
-//               </div>
-//             </motion.div>
-//           ) : null}
-
-//           <motion.p
-//             initial={{ opacity: 0, y: 18 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.45 }}
-//             className="mb-3 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-2 text-[11px] font-medium tracking-[0.2em] text-cyan-300 sm:px-4 md:mb-4 md:text-sm"
-//           >
-//             {hero?.availabilityText || "Available for full-stack opportunities"}
-//           </motion.p>
-
-//           <motion.h1
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.08 }}
-//             className="min-h-[56px] text-3xl font-black leading-tight sm:min-h-[72px] sm:text-5xl md:min-h-[92px] md:text-6xl xl:text-7xl"
-//           >
-//             <span
-//               ref={headingRef}
-//               className="whitespace-pre-wrap text-cyan-300"
-//             />
-//             <span className="ml-1 inline-block h-[1em] w-[2px] animate-pulse bg-cyan-400 align-middle" />
-//           </motion.h1>
-
-//           <motion.h2
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.16 }}
-//             className="mt-3 min-h-[32px] text-base font-semibold text-white/80 sm:text-xl md:mt-3 md:min-h-[40px] md:text-3xl"
-//           >
-//             <span ref={titleRef} />
-//           </motion.h2>
-
-//           <motion.p
-//             initial={{ opacity: 0, y: 24 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.6, delay: 0.24 }}
-//             className="mt-4 max-w-2xl text-justify text-sm leading-7 text-white/70 sm:text-base md:mt-5 md:text-lg md:leading-8"
-//           >
-//             {hero?.tagline ||
-//               "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB."}
-//           </motion.p>
-
-//           <motion.div
-//             variants={socialContainer}
-//             initial="hidden"
-//             animate="show"
-//             className="mt-5 flex flex-nowrap items-center gap-3 overflow-x-auto md:mt-8"
-//           >
-//             <motion.a
-//               variants={socialItem}
-//               whileHover={{ y: -2, scale: 1.02 }}
-//               whileTap={{ scale: 0.97 }}
-//               href="#projects"
-//               className="btn-primary shrink-0 whitespace-nowrap shadow-[0_10px_30px_rgba(34,211,238,0.18)]"
-//             >
-//               View Projects
-//             </motion.a>
-
-//             {hero?.resumeUrl ? (
-//               <motion.a
-//                 variants={socialItem}
-//                 whileHover={{ y: -2, scale: 1.02 }}
-//                 whileTap={{ scale: 0.97 }}
-//                 href={hero.resumeUrl}
-//                 className="btn-primary shrink-0 whitespace-nowrap"
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//               >
-//                 Download Resume
-//               </motion.a>
-//             ) : null}
-//           </motion.div>
-
-//           {socialLinks.length > 0 ? (
-//             <motion.div
-//               variants={socialContainer}
-//               initial="hidden"
-//               animate="show"
-//               className="mt-5 flex flex-wrap items-center gap-2.5 md:mt-6 md:gap-4"
-//             >
-//               {[...socialLinks]
-//                 .sort((a, b) => (a.order || 0) - (b.order || 0))
-//                 .map((item) => (
-//                   <motion.a
-//                     variants={socialItem}
-//                     whileHover={{ y: -3, scale: 1.06 }}
-//                     whileTap={{ scale: 0.94 }}
-//                     key={item._id || item.label}
-//                     href={item.url}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:shadow-[0_10px_24px_rgba(34,211,238,0.16)] md:h-11 md:w-11"
-//                     title={item.label}
-//                   >
-//                     {item.icon ? (
-//                       <img
-//                         src={item.icon}
-//                         alt={item.label || "social icon"}
-//                         className="h-4 w-4 object-contain md:h-5 md:w-5"
-//                       />
-//                     ) : (
-//                       <span className="text-xs font-bold text-cyan-300">
-//                         {item.label?.charAt(0) || "S"}
-//                       </span>
-//                     )}
-//                   </motion.a>
-//                 ))}
-//             </motion.div>
-//           ) : null}
-//         </div>
-
-//         <motion.div
-//           initial={{ opacity: 0, scale: 0.96, y: 18 }}
-//           animate={{ opacity: 1, scale: 1, y: 0 }}
-//           transition={{ duration: 0.7, delay: 0.2 }}
-//           className="glass relative mx-auto w-full rounded-[1.75rem] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.35)] sm:p-6 md:rounded-[2rem] md:p-8"
-//         >
-//           <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-cyan-400/10 via-transparent to-blue-500/10 md:rounded-[2rem]" />
-
-//           <motion.div
-//             variants={cardContainer}
-//             initial="hidden"
-//             animate="show"
-//             className="relative grid grid-cols-2 gap-3 sm:gap-4"
-//           >
-//             {highlights.length > 0 ? (
-//               [...highlights]
-//                 .sort((a, b) => (a.order || 0) - (b.order || 0))
-//                 .map((item) => (
-//                   <motion.div
-//                     variants={cardItem}
-//                     whileHover={{ y: -4, scale: 1.02 }}
-//                     whileTap={{ scale: 0.98 }}
-//                     key={item._id || item.label}
-//                     className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-//                   >
-//                     <p className="text-xs text-white/50 md:text-sm">{item.label}</p>
-//                     <h4 className="mt-2 text-base font-bold leading-snug md:text-xl">
-//                       {item.value}
-//                     </h4>
-//                   </motion.div>
-//                 ))
-//             ) : (
-//               <>
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Core Focus</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">MERN Stack</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Specialty</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">Admin Panels</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">Backend</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">REST APIs</h4>
-//                 </motion.div>
-
-//                 <motion.div
-//                   variants={cardItem}
-//                   className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4"
-//                 >
-//                   <p className="text-xs text-white/50 md:text-sm">UI</p>
-//                   <h4 className="mt-2 text-base font-bold md:text-xl">Responsive</h4>
-//                 </motion.div>
-//               </>
-//             )}
-//           </motion.div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -858,53 +5,29 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 
 const socialContainer = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    y: 0,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.12,
-    },
+    transition: { staggerChildren: 0.09, delayChildren: 0.3 },
   },
 };
 
 const socialItem = {
-  hidden: { opacity: 0, y: 14, scale: 0.94 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.32,
-      ease: "easeOut",
-    },
-  },
+  hidden: { opacity: 0, y: 16, scale: 0.92 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 const cardContainer = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    y: 0,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.24,
-    },
+    transition: { staggerChildren: 0.09, delayChildren: 0.5 },
   },
 };
 
 const cardItem = {
-  hidden: { opacity: 0, y: 20, scale: 0.96 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.38,
-      ease: "easeOut",
-    },
-  },
+  hidden: { opacity: 0, y: 22, scale: 0.94 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, ease: "easeOut" } },
 };
 
 export default function Hero({ hero }) {
@@ -917,15 +40,14 @@ export default function Hero({ hero }) {
   const imageRef = useRef(null);
   const glowRingRef = useRef(null);
   const cardRef = useRef(null);
+  const orb1Ref = useRef(null);
+  const orb2Ref = useRef(null);
+  const orb3Ref = useRef(null);
+  const scrollArrowRef = useRef(null);
 
   useEffect(() => {
     const headingEl = headingRef.current;
     const titleEl = titleRef.current;
-    const imageWrapEl = imageWrapRef.current;
-    const imageEl = imageRef.current;
-    const glowRingEl = glowRingRef.current;
-    const cardEl = cardRef.current;
-
     if (!headingEl || !titleEl) return;
 
     const mainText = `Hi, I'm ${hero?.name || "Abhinash"}`;
@@ -948,246 +70,256 @@ export default function Hero({ hero }) {
       headingTimer = setInterval(() => {
         headingIndex += 1;
         headingEl.textContent = mainText.slice(0, headingIndex);
-
         if (headingIndex >= mainText.length) {
           clearInterval(headingTimer);
-
           setTimeout(() => {
             titleTimer = setInterval(() => {
               titleIndex += 1;
               titleEl.textContent = roleText.slice(0, titleIndex);
-
               if (titleIndex >= roleText.length) {
                 clearInterval(titleTimer);
-
-                gsap.to([headingEl, titleEl], {
-                  opacity: 1,
-                  duration: 0.4,
-                });
-
                 setTimeout(() => {
                   gsap.to([headingEl, titleEl], {
-                    opacity: 0.35,
-                    duration: 0.8,
+                    opacity: 0.3,
+                    duration: 0.7,
                     yoyo: true,
                     repeat: 1,
                     onComplete: typingLoop,
                   });
-                }, 1800);
+                }, 2200);
               }
-            }, 85);
-          }, 250);
+            }, 80);
+          }, 300);
         }
-      }, 90);
+      }, 85);
     };
 
     typingLoop();
 
-    if (imageWrapEl && imageEl) {
-      gsap.fromTo(
-        imageWrapEl,
-        { y: 0, scale: 1 },
-        {
-          y: -12,
-          scale: 1.02,
-          duration: 2.8,
-          repeat: -1,
-          yoyo: true,
-          ease: "power1.inOut",
-        }
-      );
-
-      gsap.to(imageEl, {
-        boxShadow: "0 0 60px rgba(34,211,238,0.35)",
-        duration: 2,
+    // Floating image
+    if (imageWrapRef.current) {
+      gsap.to(imageWrapRef.current, {
+        y: -14,
+        duration: 3,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
       });
     }
 
-    if (glowRingEl) {
-      gsap.to(glowRingEl, {
+    // Rotating glow ring
+    if (glowRingRef.current) {
+      gsap.to(glowRingRef.current, {
         rotate: 360,
-        duration: 12,
+        duration: 14,
         repeat: -1,
         ease: "none",
       });
     }
 
-    if (cardEl) {
+    // Card float
+    if (cardRef.current) {
       gsap.fromTo(
-        cardEl,
+        cardRef.current,
         { y: 10 },
-        {
-          y: -6,
-          duration: 3,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        }
+        { y: -8, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut" }
       );
+    }
+
+    // Animated orbs
+    if (orb1Ref.current) {
+      gsap.to(orb1Ref.current, {
+        x: 40, y: -30, duration: 6, repeat: -1, yoyo: true, ease: "sine.inOut",
+      });
+    }
+    if (orb2Ref.current) {
+      gsap.to(orb2Ref.current, {
+        x: -35, y: 25, duration: 8, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.5,
+      });
+    }
+    if (orb3Ref.current) {
+      gsap.to(orb3Ref.current, {
+        x: 20, y: 40, duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 3,
+      });
+    }
+
+    // Scroll arrow bounce
+    if (scrollArrowRef.current) {
+      gsap.to(scrollArrowRef.current, {
+        y: 10, duration: 1.2, repeat: -1, yoyo: true, ease: "sine.inOut",
+      });
     }
 
     return () => {
       clearInterval(headingTimer);
       clearInterval(titleTimer);
-      gsap.killTweensOf([headingEl, titleEl, imageWrapEl, imageEl, glowRingEl, cardEl]);
+      gsap.killTweensOf([
+        headingEl, titleEl,
+        imageWrapRef.current, glowRingRef.current, cardRef.current,
+        orb1Ref.current, orb2Ref.current, orb3Ref.current, scrollArrowRef.current,
+      ]);
     };
   }, [hero?.name, hero?.title]);
 
-  return (
-    <section className="relative overflow-hidden py-10 md:py-16">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.16),transparent_25%),radial-gradient(circle_at_left,rgba(59,130,246,0.12),transparent_30%)]" />
-      <div className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-cyan-400/10 via-cyan-300/5 to-transparent blur-2xl md:h-56" />
+  const defaultHighlights = [
+    { label: "Core Focus", value: "MERN Stack" },
+    { label: "Specialty", value: "Admin Panels" },
+    { label: "Backend", value: "REST APIs" },
+    { label: "UI Style", value: "Responsive" },
+  ];
 
-      <div className="container-custom grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
-        <div>
-          {hero?.profileImage ? (
+  const displayHighlights = highlights.length > 0
+    ? [...highlights].sort((a, b) => (a.order || 0) - (b.order || 0))
+    : defaultHighlights;
+
+  return (
+    <section className="relative min-h-[88vh] overflow-hidden py-10 md:py-16 flex items-center">
+      {/* Background gradient */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(124,58,237,0.18),transparent_40%),radial-gradient(ellipse_at_bottom_left,rgba(6,182,212,0.12),transparent_40%)]" />
+
+      {/* Floating Orbs */}
+      <div
+        ref={orb1Ref}
+        className="orb orb-violet absolute -top-20 -right-10 h-[420px] w-[420px] -z-10 opacity-60"
+      />
+      <div
+        ref={orb2Ref}
+        className="orb orb-cyan absolute top-1/2 -left-20 h-[320px] w-[320px] -z-10 opacity-50"
+      />
+      <div
+        ref={orb3Ref}
+        className="orb orb-pink absolute bottom-0 right-1/4 h-[280px] w-[280px] -z-10 opacity-35"
+      />
+
+      <div className="container-custom w-full grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        {/* Left side */}
+        <div className="flex flex-col">
+          {/* Profile image */}
+          {hero?.profileImage && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.85, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-6 flex justify-center"
+              transition={{ duration: 0.7 }}
+              className="mb-6 flex justify-center lg:justify-start"
             >
-              <div ref={imageWrapRef} className="relative">
-                <div className="absolute inset-0 rounded-full bg-cyan-400/30 blur-2xl" />
+              <div ref={imageWrapRef} className="relative inline-block">
+                {/* Glow aura */}
+                <div className="absolute inset-0 rounded-full bg-violet-500/30 blur-2xl scale-125" />
+                {/* Rotating dashed ring */}
                 <div
                   ref={glowRingRef}
-                  className="absolute -inset-3 rounded-full border border-cyan-400/20 border-dashed"
+                  className="absolute -inset-4 rounded-full border-2 border-dashed border-violet-400/30"
                 />
-                <div className="absolute -inset-2 rounded-full border border-cyan-400/20" />
+                {/* Solid inner ring */}
+                <div className="absolute -inset-2 rounded-full border border-violet-400/20" />
                 <img
                   ref={imageRef}
                   src={hero.profileImage}
                   alt={hero?.name || "Profile"}
-                  className="relative h-28 w-28 rounded-full border border-white/10 object-cover shadow-[0_0_40px_rgba(34,211,238,0.22)] sm:h-36 sm:w-36 md:h-40 md:w-40 lg:h-44 lg:w-44"
+                  className="relative h-28 w-28 rounded-full border-2 border-violet-400/30 object-cover shadow-[0_0_50px_rgba(124,58,237,0.4)] sm:h-36 sm:w-36 md:h-44 md:w-44"
                 />
+                {/* Online indicator */}
+                <div className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-[#05050f] bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
               </div>
             </motion.div>
-          ) : null}
+          )}
 
-          <motion.p
+          {/* Availability badge */}
+          <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="mb-3 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3.5 py-2 text-[11px] font-medium tracking-[0.2em] text-cyan-300 sm:px-4 md:mb-4 md:text-sm"
+            transition={{ duration: 0.5 }}
+            className="mb-4"
           >
-            {hero?.availabilityText || "Available for full-stack opportunities"}
-          </motion.p>
+            <span className="section-label">
+              {hero?.availabilityText || "Available for Opportunities"}
+            </span>
+          </motion.div>
 
+          {/* Heading + typing */}
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-          //   className="min-h-[56px] text-3xl font-black leading-tight sm:min-h-[72px] sm:text-5xl md:min-h-[92px] md:text-6xl xl:text-7xl"
-          // >
-          className="min-h-[56px] text-3xl font-black leading-tight sm:min-h-[72px] sm:text-5xl md:min-h-[92px] md:text-6xl xl:text-6xl lg:whitespace-nowrap">
-            <span ref={headingRef} className="whitespace-pre-wrap text-cyan-300" />
-            <span className="ml-1 inline-block h-[1em] w-[2px] animate-pulse bg-cyan-400 align-middle" />
+            transition={{ duration: 0.65, delay: 0.1 }}
+            className="min-h-[52px] text-4xl font-black leading-tight sm:min-h-[64px] sm:text-5xl md:min-h-[80px] md:text-6xl xl:text-7xl"
+          >
+            <span ref={headingRef} className="gradient-text whitespace-pre-wrap" />
+            <span className="cursor-blink" />
           </motion.h1>
 
-          <motion.h3
+          {/* Role */}
+          <motion.h2
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-            className="mt-0 min-h-[10px] text-base font-semibold text-white/80 sm:mt-1 sm:text-xl md:mt-2 md:min-h-[15px] md:text-3xl"
->
+            transition={{ duration: 0.65, delay: 0.18 }}
+            className="mt-2 min-h-[28px] text-lg font-semibold text-white/70 sm:text-2xl md:mt-3 md:text-3xl"
+          >
             <span ref={titleRef} />
-          </motion.h3>
+          </motion.h2>
 
+          {/* Tagline */}
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24 }}
-            className="mt-2 max-w-2xl text-justify text-sm leading-7 text-white/70 sm:text-base md:mt-3 md:text-lg md:leading-8"
+            transition={{ duration: 0.65, delay: 0.26 }}
+            className="mt-4 max-w-xl text-sm leading-7 text-white/55 sm:text-base md:mt-5 md:text-lg md:leading-8"
           >
             {hero?.tagline ||
               "I build scalable web apps with Next.js, React, Node.js, Express.js, and MongoDB."}
           </motion.p>
 
-          {/* <motion.div
+          {/* CTA Buttons */}
+          <motion.div
             variants={socialContainer}
             initial="hidden"
             animate="show"
-          //   className="mt-5 flex flex-wrap items-center gap-3 md:mt-8 sm:flex-nowrap sm:overflow-x-auto"
-          // >
-          className="mt-5 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:flex-nowrap sm:items-center">
+            className="mt-6 flex flex-row flex-wrap items-center gap-3 md:mt-8"
+          >
             <motion.a
               variants={socialItem}
-              whileHover={{ y: -2, scale: 1.02 }}
+              whileHover={{ y: -3, scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               href="#projects"
-            //   className="btn-primary w-full text-center whitespace-nowrap sm:w-auto sm:shrink-0 shadow-[0_10px_30px_rgba(34,211,238,0.18)]"
-            // >
-            className="btn-primary w-full text-center whitespace-nowrap sm:w-auto sm:shrink-0 shadow-[0_10px_30px_rgba(34,211,238,0.18)]">
+              className="btn-primary"
+            >
               View Projects
             </motion.a>
 
-            {hero?.resumeUrl ? (
+            {hero?.resumeUrl && (
               <motion.a
                 variants={socialItem}
-                whileHover={{ y: -2, scale: 1.02 }}
+                whileHover={{ y: -3, scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 href={hero.resumeUrl}
-                // className="btn-primary w-full text-center whitespace-nowrap sm:w-auto sm:shrink-0"
-                className="btn-primary w-full text-center whitespace-nowrap sm:w-auto sm:shrink-0"
-                // target="_blank"
-                // rel="noopener noreferrer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
               >
                 Download Resume
               </motion.a>
-            ) : null}
-          </motion.div> */}
+            )}
+          </motion.div>
 
-            <motion.div
-  variants={socialContainer}
-  initial="hidden"
-  animate="show"
-className="mt-5 flex flex-row flex-nowrap items-center gap-2 overflow-x-auto sm:mt-7 md:gap-3">
-  <motion.a
-    variants={socialItem}
-    whileHover={{ y: -2, scale: 1.02 }}
-    whileTap={{ scale: 0.97 }}
-    href="#projects"
-    className="btn-primary w-full text-center whitespace-nowrap sm:w-auto sm:shrink-0"
-  >
-    View Projects
-  </motion.a>
-
-  {hero?.resumeUrl ? (
-    <motion.a
-      variants={socialItem}
-      whileHover={{ y: -2, scale: 1.02 }}
-      whileTap={{ scale: 0.97 }}
-      href={hero.resumeUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="btn-primary w-full text-center whitespace-nowrap sm:w-auto sm:shrink-0"
-    >
-      Resume
-    </motion.a>
-  ) : null}
-</motion.div>
-          {socialLinks.length > 0 ? (
+          {/* Social links */}
+          {socialLinks.length > 0 && (
             <motion.div
               variants={socialContainer}
               initial="hidden"
               animate="show"
-              className="mt-5 flex flex-wrap items-center gap-2.5 md:mt-6 md:gap-4"
+              className="mt-5 flex flex-wrap items-center gap-3"
             >
               {[...socialLinks]
                 .sort((a, b) => (a.order || 0) - (b.order || 0))
                 .map((item) => (
                   <motion.a
                     variants={socialItem}
-                    whileHover={{ y: -3, scale: 1.06 }}
-                    whileTap={{ scale: 0.94 }}
+                    whileHover={{ y: -4, scale: 1.1 }}
+                    whileTap={{ scale: 0.92 }}
                     key={item._id || item.label}
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/10 hover:shadow-[0_10px_24px_rgba(34,211,238,0.16)] md:h-11 md:w-11"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-violet-400/20 bg-violet-500/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-violet-400/50 hover:bg-violet-500/20 hover:shadow-[0_8px_24px_rgba(124,58,237,0.25)] md:h-11 md:w-11"
                     title={item.label}
                   >
                     {item.icon ? (
@@ -1197,73 +329,80 @@ className="mt-5 flex flex-row flex-nowrap items-center gap-2 overflow-x-auto sm:
                         className="h-4 w-4 object-contain md:h-5 md:w-5"
                       />
                     ) : (
-                      <span className="text-xs font-bold text-cyan-300">
+                      <span className="text-xs font-bold text-violet-300">
                         {item.label?.charAt(0) || "S"}
                       </span>
                     )}
                   </motion.a>
                 ))}
             </motion.div>
-          ) : null}
+          )}
         </div>
 
+        {/* Right side — Highlight Cards */}
         <motion.div
           ref={cardRef}
-          initial={{ opacity: 0, scale: 0.96, y: 18 }}
+          initial={{ opacity: 0, scale: 0.94, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="glass relative mx-auto w-full rounded-[1.75rem] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.35)] sm:p-6 md:rounded-[2rem] md:p-8"
+          transition={{ duration: 0.75, delay: 0.25 }}
+          className="relative mx-auto w-full max-w-md"
         >
-          <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-gradient-to-br from-cyan-400/10 via-transparent to-blue-500/10 md:rounded-[2rem]" />
+          {/* Card glow backdrop */}
+          <div className="absolute -inset-8 rounded-[3rem] bg-violet-600/10 blur-3xl" />
 
-          <motion.div
-            variants={cardContainer}
-            initial="hidden"
-            animate="show"
-            className="relative grid grid-cols-2 gap-3 sm:gap-4"
-          >
-            {highlights.length > 0 ? (
-              [...highlights]
-                .sort((a, b) => (a.order || 0) - (b.order || 0))
-                .map((item) => (
-                  <motion.div
-                    variants={cardItem}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    key={item._id || item.label}
-                    className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-300 hover:border-cyan-400/20 hover:from-cyan-400/10 hover:to-blue-500/10 hover:shadow-[0_12px_28px_rgba(34,211,238,0.12)] md:p-4"
-                  >
-                    <p className="text-xs text-white/50 md:text-sm">{item.label}</p>
-                    <h4 className="mt-2 text-base font-bold leading-snug md:text-xl">
-                      {item.value}
-                    </h4>
-                  </motion.div>
-                ))
-            ) : (
-              <>
-                <motion.div variants={cardItem} className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4">
-                  <p className="text-xs text-white/50 md:text-sm">Core Focus</p>
-                  <h4 className="mt-2 text-base font-bold md:text-xl">MERN Stack</h4>
-                </motion.div>
+          <div className="glass-violet relative rounded-[2rem] p-5 shadow-[0_20px_70px_rgba(124,58,237,0.15)] sm:p-6 md:p-8">
+            {/* Inner gradient overlay */}
+            <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-gradient-to-br from-violet-400/8 via-transparent to-cyan-400/6" />
 
-                <motion.div variants={cardItem} className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4">
-                  <p className="text-xs text-white/50 md:text-sm">Specialty</p>
-                  <h4 className="mt-2 text-base font-bold md:text-xl">Admin Panels</h4>
-                </motion.div>
+            {/* Top label */}
+            <div className="relative mb-5 flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/50">
+                Quick Highlights
+              </p>
+            </div>
 
-                <motion.div variants={cardItem} className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4">
-                  <p className="text-xs text-white/50 md:text-sm">Backend</p>
-                  <h4 className="mt-2 text-base font-bold md:text-xl">REST APIs</h4>
+            <motion.div
+              variants={cardContainer}
+              initial="hidden"
+              animate="show"
+              className="relative grid grid-cols-2 gap-3 sm:gap-4"
+            >
+              {displayHighlights.map((item, i) => (
+                <motion.div
+                  key={item._id || item.label || i}
+                  variants={cardItem}
+                  whileHover={{ y: -5, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="group relative overflow-hidden rounded-2xl border border-white/8 bg-white/4 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-300 hover:border-violet-400/30 hover:bg-violet-500/10 hover:shadow-[0_12px_32px_rgba(124,58,237,0.2)] md:p-5"
+                >
+                  <div className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-violet-500/10 blur-xl opacity-0 transition duration-300 group-hover:opacity-100" />
+                  <p className="text-xs text-white/40 md:text-sm">{item.label}</p>
+                  <h4 className="mt-2 text-base font-bold leading-snug text-white md:text-lg">
+                    {item.value}
+                  </h4>
                 </motion.div>
+              ))}
+            </motion.div>
 
-                <motion.div variants={cardItem} className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 to-white/4 p-3 md:p-4">
-                  <p className="text-xs text-white/50 md:text-sm">UI</p>
-                  <h4 className="mt-2 text-base font-bold md:text-xl">Responsive</h4>
-                </motion.div>
-              </>
-            )}
-          </motion.div>
+            {/* Bottom accent */}
+            <div className="relative mt-5 h-px bg-gradient-to-r from-transparent via-violet-400/30 to-transparent" />
+            <p className="relative mt-3 text-center text-xs text-white/30">
+              Open to internships & freelance
+            </p>
+          </div>
         </motion.div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div
+        ref={scrollArrowRef}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50"
+      >
+        <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">Scroll</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-violet-400">
+          <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </div>
     </section>
   );

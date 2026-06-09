@@ -129,6 +129,7 @@
 
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
+import { requireAuth } from "@/lib/requireAuth";
 import Hero from "@/models/Hero";
 
 export const runtime = "nodejs";
@@ -173,6 +174,9 @@ export async function GET() {
 }
 
 export async function PUT(req) {
+  const { unauthorized } = await requireAuth();
+  if (unauthorized) return unauthorized;
+
   try {
     await connectDB();
 
